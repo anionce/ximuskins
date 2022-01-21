@@ -7,7 +7,11 @@ var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var fearToFailRouter = require("./routes/feartofail");
+<<<<<<< HEAD:backend/app.js
 var foodRouter = require("./routes/food");
+=======
+var silentHeroRouter = require('./routes/silenthero');
+>>>>>>> 1e875ed0a1b7e81e2c4e330b269c68d5c24ee631:app.js
 
 var app = express();
 
@@ -23,8 +27,14 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+<<<<<<< HEAD:backend/app.js
 app.use("/users", fearToFailRouter);
 app.use("/food", foodRouter);
+=======
+app.use("/feartofail", fearToFailRouter);
+app.use('/silenthero', silentHeroRouter);
+
+>>>>>>> 1e875ed0a1b7e81e2c4e330b269c68d5c24ee631:app.js
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
