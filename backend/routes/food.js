@@ -4,6 +4,8 @@ var Meals = require("../models/meals");
 
 // POST
 
+/* POST answer BMI. */
+/*CREATE */
 router.post("/", function (req, res, next) {
   let name = req.body.name;
   let main_flavour = req.body.main_flavour;
@@ -18,22 +20,23 @@ router.post("/", function (req, res, next) {
     ingredients: ingredients,
     score: score,
   };
-
   Meals.add(responseObject, function (err) {
     if (err) {
-      res.status(500).send("Server Error");
+      console.log(err);
+      res.status(500).send("Server error");
     } else {
       res.json(responseObject);
     }
   });
 });
+module.exports = router;
 
 // GET ALL
 
 router.get("/", function (req, res, next) {
   Meals.all(function (err, data) {
     if (err) {
-      res.status(500).send("Server Error");
+      res.status(500).send("Server error");
     } else {
       res.json(data);
     }
@@ -46,7 +49,7 @@ router.get("/:id", function (req, res, next) {
   const id = parseInt(req.params.id);
   Meals.one(id, function (err, data) {
     if (err) {
-      res.status(500).send("Server Error");
+      res.status(500).send("There was an error");
     } else {
       res.json(data);
     }
@@ -58,6 +61,12 @@ router.get("/:id", function (req, res, next) {
 router.put("/:id", function (req, res, next) {
   const id = parseInt(req.params.id);
 
+  let name = req.body.name;
+  let main_flavour = req.body.main_flavour;
+  let country_origin = req.body.country_origin;
+  let ingredients = req.body.ingredients;
+  let score = req.body.score;
+
   let newData = {
     name: name,
     main_flavour: main_flavour,
@@ -68,14 +77,14 @@ router.put("/:id", function (req, res, next) {
 
   Meals.update(id, newData, function (err) {
     if (err) {
-      res.status(500).send("Server Error");
+      res.status(500).send("Server error");
     } else {
       res.json(newData);
     }
   });
 });
 
-// DELETE ALL
+// DELETE
 
 router.delete("/all", function (req, res, next) {
   Meals.deleteAll(function (err) {
@@ -86,8 +95,7 @@ router.delete("/all", function (req, res, next) {
     }
   });
 });
-
-//DELETE ONE
+//Delete
 router.delete("/:id", function (req, res, next) {
   const id = parseInt(req.params.id);
   Meals.remove(id, function (err) {
